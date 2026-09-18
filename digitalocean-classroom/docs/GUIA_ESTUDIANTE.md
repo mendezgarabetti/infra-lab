@@ -110,6 +110,12 @@ Evidencia requerida:
 
 ## Bloque 3 — Alta disponibilidad y fallas
 
+En tu VM corren 4 servicios en contenedores Docker: un balanceador (Nginx), dos
+instancias de la aplicación (`web-n01` y `web-n02`) y Redis. En este bloque vas
+a simular la caída de una de las dos instancias de la aplicación (no de la VM
+completa) y vas a comprobar que el sistema sigue respondiendo gracias al
+balanceador y a la segunda instancia.
+
 1. Ejecutar la prueba de estrés:
 
 ```bash
