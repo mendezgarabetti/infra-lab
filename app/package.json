@@ -1,0 +1,12 @@
+{
+  "name": "infra-node",
+  "version": "1.0.0",
+  "description": "Laboratorio de alta disponibilidad con Node.js, Nginx y Redis",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ioredis": "^5.6.1"
+  }
+}
