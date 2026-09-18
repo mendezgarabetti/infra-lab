@@ -8,9 +8,3 @@ Toda la información que necesitás está en la guía de la práctica:
 
 - [docs/GUIA_ESTUDIANTE.md](docs/GUIA_ESTUDIANTE.md)
 
-## Para el docente
-
-Notas de aprovisionamiento e infraestructura (no compartir con estudiantes):
-
-- [docs/DOCENTE.md](docs/DOCENTE.md)
-

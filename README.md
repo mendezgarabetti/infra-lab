@@ -1,13 +1,19 @@
-# Laboratorio: Alta Disponibilidad Web con Nginx, Node.js y Redis
+# Laboratorio: Alta Disponibilidad Web en la nube
 
-Este repositorio contiene un laboratorio educativo para demostrar:
+Este repositorio contiene el material de la práctica donde cada estudiante opera su propia máquina virtual en la nube (DigitalOcean) para desplegar y poner a prueba un sistema web con balanceo de carga, escalado horizontal y alta disponibilidad.
 
-- Balanceo de carga con Nginx.
-- Escalado horizontal con 2 nodos Node.js.
-- Estado compartido con Redis.
-- Alta disponibilidad básica frente a caída de un nodo.
+## Práctica principal: laboratorio en la nube (DigitalOcean)
 
-## Estructura
+Cada estudiante recibe acceso a su propia VM y despliega ahí el sistema (Nginx + 2 nodos Node.js + Redis), probando conectividad de red real, balanceo de carga y tolerancia a fallas.
+
+- [digitalocean-classroom/README.md](digitalocean-classroom/README.md)
+- [digitalocean-classroom/docs/GUIA_ESTUDIANTE.md](digitalocean-classroom/docs/GUIA_ESTUDIANTE.md)
+
+## Práctica 2 (secundaria): mismo laboratorio en local con Docker Compose
+
+Versión local del mismo sistema (Nginx + 2 nodos Node.js + Redis) para quienes quieran ejecutarlo en su propia computadora, sin necesitar una VM en la nube.
+
+### Estructura
 
 ```text
 infra-lab/
@@ -23,11 +29,11 @@ infra-lab/
     └── server.js
 ```
 
-## Requisitos
+### Requisitos
 
 - Docker Desktop (o Docker Engine + Docker Compose)
 
-## Levantar el laboratorio
+### Levantar el laboratorio
 
 Desde la carpeta `infra-lab` ejecuta:
 
@@ -41,7 +47,7 @@ Verifica contenedores:
 docker-compose ps
 ```
 
-## Probar en navegador
+### Probar en navegador
 
 Abre:
 
@@ -56,7 +62,7 @@ hostname=<contenedor> | global_visits=<contador_global>
 - El hostname cambiará entre `web-n01` y `web-n02` por el balanceo.
 - El contador `global_visits` seguirá subiendo globalmente porque Redis comparte estado.
 
-## Prueba de estrés rápida
+### Prueba de estrés rápida
 
 Dar permisos y ejecutar:
 
@@ -67,7 +73,7 @@ chmod +x stress-test.sh
 
 El script envía 100 peticiones rápidas y muestra las respuestas para observar el reparto de tráfico.
 
-## Simular caída de un nodo (HA)
+### Simular caída de un nodo (HA)
 
 Puedes detener un nodo:
 
@@ -83,7 +89,7 @@ docker-compose stop web-n01
 
 Luego vuelve a consultar http://localhost:8080 y comprobarás que el servicio responde por el otro nodo.
 
-## Apagar y limpiar
+### Apagar y limpiar
 
 ```bash
 docker-compose down
@@ -94,11 +100,4 @@ Si quieres también eliminar volúmenes:
 ```bash
 docker-compose down -v
 ```
-
-## Práctica en clase con 24 estudiantes (DigitalOcean)
-
-Para la actividad de 3 horas con una VM por estudiante (VPC compartida, acceso SSH, guía paso a paso), ver:
-
-- [digitalocean-classroom/README.md](digitalocean-classroom/README.md)
-- [digitalocean-classroom/docs/GUIA_ESTUDIANTE.md](digitalocean-classroom/docs/GUIA_ESTUDIANTE.md)
 
