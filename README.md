@@ -94,3 +94,11 @@ Si quieres también eliminar volúmenes:
 ```bash
 docker-compose down -v
 ```
+
+## Práctica en clase con 24 estudiantes (DigitalOcean)
+
+Para la actividad de 3 horas con una VM por estudiante (VPC compartida, acceso SSH, guía paso a paso), ver:
+
+- [digitalocean-classroom/README.md](digitalocean-classroom/README.md)
+- [digitalocean-classroom/docs/GUIA_CLASE_3H.md](digitalocean-classroom/docs/GUIA_CLASE_3H.md)
+

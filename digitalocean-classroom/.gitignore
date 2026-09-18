@@ -1,0 +1,11 @@
+.terraform/
+.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/tfplan
+terraform/tfplan-fw
+terraform/terraform.tfvars
+bin/
+student_instances.json
+student_access.csv
+student_passwords.csv

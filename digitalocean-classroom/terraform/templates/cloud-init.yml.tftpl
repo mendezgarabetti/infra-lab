@@ -1,0 +1,38 @@
+#cloud-config
+package_update: true
+package_upgrade: false
+
+packages:
+  - docker.io
+  - docker-compose-v2
+  - git
+  - curl
+  - jq
+
+users:
+  - name: ${username}
+    gecos: Estudiante ${username}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    groups: [docker]
+    lock_passwd: true
+    ssh_authorized_keys:
+    %{ if student_public_key != "" ~}
+      - ${student_public_key}
+    %{ endif ~}
+      - ${instructor_public_key}
+
+write_files:
+  - path: /etc/motd
+    permissions: '0644'
+    content: |
+      Laboratorio de Arquitecturas Web HA
+      Usuario asignado: ${username}
+      Revisa /opt/lab/README-STUDENT.md
+
+runcmd:
+  - systemctl enable docker
+  - systemctl start docker
+  - mkdir -p /opt/lab
+  - if [ -n "${class_repo_url}" ]; then su - ${username} -c "git clone ${class_repo_url} /opt/lab/repo || true"; fi
+  - chown -R ${username}:${username} /opt/lab

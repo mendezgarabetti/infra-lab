@@ -1,0 +1,42 @@
+# Copiar este archivo a terraform.tfvars y completar valores reales.
+
+prefix             = "arqweb-lab"
+region             = "nyc1"
+student_count      = 24
+droplet_size       = "s-1vcpu-1gb"
+droplet_image      = "ubuntu-24-04-x64"
+vpc_cidr           = "10.30.0.0/16"
+ssh_source_cidrs   = ["0.0.0.0/0"]
+class_repo_url     = "https://github.com/mendezgarabetti/infra-lab.git"
+
+# Tu clave publica local (docente)
+instructor_public_key = "ssh-ed25519 AAAA... reemplazar ... docente@host"
+
+# Claves publicas de estudiantes.
+# Formato de claves: "01".."24"
+student_public_keys = {
+  "01" = "ssh-ed25519 AAAA... student01@host"
+  "02" = "ssh-ed25519 AAAA... student02@host"
+  "03" = "ssh-ed25519 AAAA... student03@host"
+  "04" = "ssh-ed25519 AAAA... student04@host"
+  "05" = "ssh-ed25519 AAAA... student05@host"
+  "06" = "ssh-ed25519 AAAA... student06@host"
+  "07" = "ssh-ed25519 AAAA... student07@host"
+  "08" = "ssh-ed25519 AAAA... student08@host"
+  "09" = "ssh-ed25519 AAAA... student09@host"
+  "10" = "ssh-ed25519 AAAA... student10@host"
+  "11" = "ssh-ed25519 AAAA... student11@host"
+  "12" = "ssh-ed25519 AAAA... student12@host"
+  "13" = "ssh-ed25519 AAAA... student13@host"
+  "14" = "ssh-ed25519 AAAA... student14@host"
+  "15" = "ssh-ed25519 AAAA... student15@host"
+  "16" = "ssh-ed25519 AAAA... student16@host"
+  "17" = "ssh-ed25519 AAAA... student17@host"
+  "18" = "ssh-ed25519 AAAA... student18@host"
+  "19" = "ssh-ed25519 AAAA... student19@host"
+  "20" = "ssh-ed25519 AAAA... student20@host"
+  "21" = "ssh-ed25519 AAAA... student21@host"
+  "22" = "ssh-ed25519 AAAA... student22@host"
+  "23" = "ssh-ed25519 AAAA... student23@host"
+  "24" = "ssh-ed25519 AAAA... student24@host"
+}
