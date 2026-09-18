@@ -4,6 +4,7 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/tfplan
 terraform/tfplan-fw
+terraform/tfplan-b
 terraform/terraform.tfvars
 bin/
 student_instances.json

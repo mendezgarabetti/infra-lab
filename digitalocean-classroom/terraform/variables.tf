@@ -62,3 +62,9 @@ variable "class_repo_url" {
   type        = string
   default     = ""
 }
+
+variable "enable_second_vm" {
+  description = "Si es true, crea una segunda VM (nodo B) por estudiante para pruebas de HA entre maquinas reales"
+  type        = bool
+  default     = false
+}

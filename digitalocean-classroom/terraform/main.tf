@@ -61,6 +61,30 @@ resource "digitalocean_droplet" "student_vm" {
   tags = concat(local.common_tags, ["student-${each.key}"])
 }
 
+resource "digitalocean_droplet" "student_vm_b" {
+  for_each = var.enable_second_vm ? local.students : {}
+
+  name   = "${var.prefix}-st-${each.key}-b"
+  region = var.region
+  size   = var.droplet_size
+  image  = var.droplet_image
+
+  vpc_uuid = digitalocean_vpc.classroom.id
+  ssh_keys = [digitalocean_ssh_key.instructor.fingerprint]
+
+  monitoring = true
+  ipv6       = false
+
+  user_data = templatefile("${path.module}/templates/cloud-init.yml.tftpl", {
+    username             = each.value.username
+    student_public_key   = each.value.public_key
+    instructor_public_key = var.instructor_public_key
+    class_repo_url       = var.class_repo_url
+  })
+
+  tags = concat(local.common_tags, ["student-${each.key}", "nodo-b"])
+}
+
 resource "digitalocean_firewall" "classroom" {
   name = "${var.prefix}-fw"
 

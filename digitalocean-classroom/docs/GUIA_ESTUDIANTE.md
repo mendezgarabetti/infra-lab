@@ -161,6 +161,74 @@ Evidencia requerida:
 - Commit con tus mejoras.
 - Mini informe técnico (máximo 1 página) explicando qué implementaste y por qué.
 
+## Extensión avanzada (opcional) — HA real entre dos VMs
+
+Todo lo que hiciste en el Bloque 3 simula la caída de un **contenedor** dentro
+de tu misma VM. Esta extensión opcional va un paso más allá: probar qué pasa
+si se cae una **máquina completa**, usando una segunda VM real como nodo
+adicional del balanceador.
+
+Esta actividad es solo para los grupos a los que el docente les asigne una
+segunda VM ("nodo B"). El docente te va a pasar por WhatsApp: usuario, IP
+pública, IP privada y contraseña de esa VM.
+
+1. Conectate por SSH a la VM B igual que a la tuya:
+
+```bash
+ssh studentXX@IP_PUBLICA_VM_B
+```
+
+2. En la VM B, construí y corré **solo la aplicación** (sin Nginx ni Redis
+   propios), apuntando al Redis de tu VM (VM A) por su IP **privada**:
+
+```bash
+cd /opt/lab/repo/app
+sudo docker build -t lab-app .
+sudo docker run -d --name web-remoto -p 3000:3000 \
+  -e REDIS_HOST=IP_PRIVADA_DE_TU_VM_A \
+  -e NODE_ENV=production \
+  lab-app
+```
+
+3. En tu propia VM (A), editá `/opt/lab/repo/nginx/nginx.conf` y agregá la VM
+   B como tercer servidor del `upstream`:
+
+```
+upstream backend_cluster {
+    server web-n01:3000;
+    server web-n02:3000;
+    server IP_PRIVADA_DE_VM_B:3000;
+}
+```
+
+4. Aplicá el cambio de configuración:
+
+```bash
+cd /opt/lab/repo
+sudo docker compose restart lb
+```
+
+5. Repetí `curl http://localhost:8080` varias veces y confirmá que el
+   `hostname` devuelto a veces corresponde al contenedor de la VM B (nodo
+   remoto), no solo a `web-n01`/`web-n02`.
+
+6. Simulá la caída de la máquina completa (no solo del contenedor), deteniendo
+   el proceso en la VM B:
+
+```bash
+sudo docker stop web-remoto
+```
+
+7. Verificá desde tu VM (A) que el servicio sigue respondiendo con `curl
+   http://localhost:8080`, ahora sin el nodo remoto.
+
+Evidencia requerida (si hacés esta extensión):
+
+- Capturas mostrando respuestas provenientes del nodo remoto (VM B) antes de
+  la caída.
+- Captura del servicio funcionando después de detener la VM B.
+- Fragmento del `nginx.conf` con el tercer `server` agregado.
+
 ## Rúbrica
 
 - 30% funcionamiento reproducible.
